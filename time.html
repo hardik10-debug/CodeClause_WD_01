@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Countdown Timer</title>
+  <style>
+    body {
+     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+     background: linear-gradient(to right,#03e1cb, #477ab1);
+     color: #ccc;
+   line-height: 1.6;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   
+   } 
+ 
+   header {
+ background: linear-gradient(to right, #477ab1, #03e1cb);
+ color: #fff;
+ width: 100%;
+ height: 50%;
+ padding: 20px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ }
+ 
+ .nav-logo {
+ position: absolute;
+ left: 20px;
+ }
+ 
+ .nav-logo img {
+ height: 80px;
+ width: auto;
+ border: none;
+ border-radius: 5;
+ box-shadow: none;
+ padding: 20px;
+ }
+ 
+   section {
+     padding: 50px;
+   text-align: center;
+   width: 90%;
+   max-width: 100%;
+ }
+ 
+ .container {
+ margin: 20px auto;
+ padding: 100px;
+ width: 100%;
+ max-width: 800px;
+ box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+ background: white;
+ color: rgb(19, 18, 18);
+ box-sizing: border-box;
+ border-radius: 5%;
+ margin-bottom: 5px;
+ background-image: url("Code-Clause.png");
+ background-position: center top;
+ background-repeat: no-repeat;
+ background-size: contain;
+ 
+ } 
+   #countdown {
+     font-size: 80px;
+     font-weight: bold;
+     margin-top: 50px;
+     background: linear-gradient(to right, black, #03e1cb);
+     -webkit-background-clip: text;
+     color: transparent;
+   }
+ 
+    button {
+     font-size: 25px;
+     padding: 15px 20px;
+     margin: 0 10px;
+     background-color: #477ab1;
+     color: #fff;
+     border: none;
+     border-radius: 5px;
+     cursor: pointer;
+     
+   }
+ 
+   button:hover {
+     background-color: #03e1cb;
+     transform: scale(1.1);
+   }
+ 
+   button:disabled {
+     background-color: #9da3a9;
+     cursor: not-allowed;
+   } 
+  </style>
+</head>
+<body>
+  <a href="" class="nav-logo">
+    <img src="code.jpg" alt="logo">
+  </a>
+
+  <header>
+    <h1>Event:- {Code Clause Internship};</h1>
+  </header>
+  <hr>
+
+  <section>
+    <div class="container">
+      <div id="countdown">Loading...</div>
+      <div class="buttons">
+        <button id="start-btn">Start</button>
+        <button id="pause-btn">Pause</button>
+        <button id="resume-btn" style="display: none;">Resume</button>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Set the date we're counting down to (July 31, 2024 at 12:00:00 PM)
+    var countDownDate = new Date("Jul 31, 2024 12:00:00").getTime();
+
+    // Get the countdown element
+    var countdownElement = document.getElementById("countdown");
+
+    // Get the buttons
+    var startBtn = document.getElementById("start-btn");
+    var pauseBtn = document.getElementById("pause-btn");
+    var resumeBtn = document.getElementById("resume-btn");
+
+    // Initialize the countdown interval
+    var countdownInterval;
+
+    // Start the countdown
+    startBtn.addEventListener("click", function() {
+      startCountdown();
+    });
+
+    // Pause the countdown
+    pauseBtn.addEventListener("click", function() {
+      pauseCountdown();
+    });
+
+    // Resume the countdown
+    resumeBtn.addEventListener("click", function() {
+      resumeCountdown();
+    });
+
+    // Function to start the countdown
+    function startCountdown() {
+      countdownInterval = setInterval(updateCountdown, 1000);
+      startBtn.disabled = true;
+      pauseBtn.disabled = false;
+      resumeBtn.style.display = "none";
+    }
+
+    // Function to pause the countdown
+    function pauseCountdown() {
+      clearInterval(countdownInterval);
+      startBtn.disabled = true;
+      pauseBtn.disabled = true;
+      resumeBtn.style.display = "inline-block";
+    }
+
+    // Function to resume the countdown
+    function resumeCountdown() {
+      countdownInterval = setInterval(updateCountdown, 1000);
+      startBtn.disabled = true;
+      pauseBtn.disabled = false;
+      resumeBtn.style.display = "none";
+    }
+
+    // Function to update the countdown
+    function updateCountdown() {
+      // Get today's date and time
+      var now = new Date().getTime();
+
+      // Find the distance between now and the count down date
+      var distance = countDownDate - now;
+
+      // Time calculations for days, hours, minutes and seconds
+      var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      // Output the result in an element with id="countdown"
+      countdownElement.innerHTML = days + "d " + hours + "h "
+      + minutes + "m " + seconds + "s ";
+
+      // If the count down is over, write some text
+      if (distance < 0) {
+        clearInterval(countdownInterval);
+        countdownElement.innerHTML = "EXPIRED";
+        startBtn.disabled = true;
+        pauseBtn.disabled = true;
+        resumeBtn.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
